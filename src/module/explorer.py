@@ -1,27 +1,27 @@
-import os
+import pathlib
 
 
 def explorer(target: str):
     target_path = []
     visited_path = []
-    startin_path = os.getcwd()
-    current_folder = os.getcwd()
+    starting_path = pathlib.Path()
+    current_folder = pathlib.Path()
 
     while True:
 
-        for item in os.listdir(current_folder):
+        for item in current_folder.iterdir():
             print(f"\n[ITEM] : {item}")
 
-            if os.path.isdir(''.join((os.getcwd(), "/", item))):
-                print(f"[is folder] : {''.join((os.getcwd(), '/', item))}")
+            if (current_folder / item).is_dir():
+                print(f"[is folder] : {current_folder / item}")
                 ending = "/"
-            elif os.path.isfile(''.join((os.getcwd(), "/", item))):
-                print(f"[is file] : {''.join((os.getcwd(), '/', item))}")
+            elif (current_folder / item).is_file():
+                print(f"[is file] : {current_folder / item}")
                 ending = ""
             else:
                 print("[Error]")
 
-            item_path = ''.join((os.getcwd()+"/", item, ending))
+            item_path = (current_folder / item).absolute()
             print(f"[ITEM PATH] : {item_path}")
 
 
